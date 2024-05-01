@@ -1,17 +1,21 @@
 import express from "express";
+import dotenv from "dotenv";
+import https from "https";
+import fs from "fs";
 import path from "path";
-import cors from "cors";
-import fs from 'fs';
-import { fileURLToPath } from "url";
+
+dotenv.config();
+
 const app = express();
-const PORT = process.env.PORT || 3001;
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const port = process.env.PORT || 4500;
 
-app.use(cors())
-app.use(express.json());
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-app.use(express.static('client/build'))
 
+// Routes
+app.get("/", (req, res) => {
+  res.send("WELCOME TO THE BASIC EXPRESS APP WITH AN HTTPS SERVER");
+});
 
 app.get("/.well-known/apple-app-site-association", (req, res) => {
   fs.readFile('./.well-known/apple-app-site-association', 'utf-8', (err, data) => {
@@ -20,6 +24,15 @@ app.get("/.well-known/apple-app-site-association", (req, res) => {
   })
 });
 
-app.listen(PORT, () => {
-  console.log(`App running on port ${PORT}.`);
+// Read SSL certificate and key files1
+const options = {
+  key: fs.readFileSync(path.join(__dirname, "localhost-key.pem")),
+  cert: fs.readFileSync(path.join(__dirname, "localhost.pem")),
+};
+
+// Create HTTPS server
+const server = https.createServer(options, app);
+
+server.listen(port, () => {
+  console.log(`App listening on https://localhost:${port}`);
 });
