@@ -14,10 +14,24 @@ app.use(express.static('client/build'))
 
 
 app.get("/.well-known/apple-app-site-association", (req, res) => {
-  fs.readFile('./well-known/apple-app-site-association', 'utf-8', (err, data) => {
+  const data = {
+    applinks: {
+        apps: [],
+        details: [
+            {
+                appID: "5HVBWNJFQ5.com.eldertech",
+                paths: [ "*" ]
+            }
+        ]
+    },
+    webcredentials: {
+        "apps": [ "5HVBWNJFQ5.com.eldertech" ]
+    },
+}
+  res.status(200).json(data);
+  // fs.readFile('./well-known/apple-app-site-association', 'utf-8', (err, data) => {
 
-    res.status(200).json(JSON.parse(data));
-  })
+  // })
 });
 
 app.get("/", (req, res) => {
