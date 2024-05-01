@@ -20,6 +20,10 @@ app.get("/.well-known/apple-app-site-association", (req, res) => {
   })
 });
 
+app.get("/", (req, res) => {
+  res.status(200).send('Hello');
+});
+
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}.`);
 });
