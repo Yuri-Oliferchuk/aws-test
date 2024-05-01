@@ -1,0 +1,20 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "5HVBWNJFQ5.com.eldertech",
+                "paths": [ "*" ]
+            }
+        ]
+    },
+    "webcredentials": {
+        "apps": [ "5HVBWNJFQ5.com.eldertech" ]
+    },
+    "activitycontinuation": {
+        "apps": [ "5HVBWNJFQ5.com.eldertech" ]
+    },
+    "data": {
+        "apps": [ "5HVBWNJFQ5.com.eldertech" ]
+    }
+}
